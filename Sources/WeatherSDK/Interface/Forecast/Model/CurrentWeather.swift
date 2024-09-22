@@ -66,7 +66,28 @@ struct Datum: Codable {
 
 // MARK: - WeatherClass
 struct WeatherClass: Codable {
-    let description: String
+    let description: Description
     let code: Int
     let icon: String
+}
+
+struct Forecast: Codable {
+    let cityName, countryCode: String
+    let data: [Datum]
+    let lat, lon, stateCode, timezone: String
+
+    enum CodingKeys: String, CodingKey {
+        case cityName = "city_name"
+        case countryCode = "country_code"
+        case data, lat, lon
+        case stateCode = "state_code"
+        case timezone
+    }
+}
+
+enum Description: String, Codable {
+    case brokenClouds = "Broken clouds"
+    case fewClouds = "Few clouds"
+    case overcastClouds = "Overcast clouds"
+    case scatteredClouds = "Scattered clouds"
 }
