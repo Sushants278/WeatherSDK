@@ -8,31 +8,6 @@
 
 import Foundation
 
-// MARK: - NetworkError Enum
-
-public enum NetworkError: Error, LocalizedError {
-    case invalidURL
-    case requestFailed(Error)
-    case invalidResponse
-    case decodingError(Error)
-    case unknownError
-
-    public var errorDescription: String? {
-        switch self {
-        case .invalidURL:
-            return "The URL provided was invalid."
-        case .requestFailed(let error):
-            return "The network request failed with error: \(error.localizedDescription)"
-        case .invalidResponse:
-            return "The response from the server was invalid."
-        case .decodingError(let error):
-            return "Failed to decode the response: \(error.localizedDescription)"
-        case .unknownError:
-            return "An unknown error occurred."
-        }
-    }
-}
-
 // MARK: - HTTPMethod Enum
 
 public enum HTTPMethod: String {
@@ -48,7 +23,6 @@ public class NetworkManager {
     
     private let apiKey: String
     private let session: URLSession
-    private let scheme: String
     private let host: String
     
     // MARK: - Initialization
@@ -59,9 +33,8 @@ public class NetworkManager {
     ///   - scheme: The URL scheme (e.g., "https"). Defaults to "https".
     ///   - host: The base host (e.g., "api.example.com").
     ///   - session: The URLSession instance. Defaults to `URLSession.shared`.
-    public init(apiKey: String, scheme: String = "https", host: String, session: URLSession = .shared) {
+    public init(apiKey: String, host: String, session: URLSession = .shared) {
         self.apiKey = apiKey
-        self.scheme = scheme
         self.host = host
         self.session = session
     }
@@ -75,7 +48,7 @@ public class NetworkManager {
     /// - Returns: Configured URLComponents.
     private func buildURLComponents(path: String, queryItems: [URLQueryItem]? = nil) -> URLComponents {
         var components = URLComponents()
-        components.scheme = scheme
+        components.scheme = "https"
         components.host = host
         components.path = path
         // Append API key as a query parameter
