@@ -32,9 +32,6 @@ class WeatherSDKCore: NSObject {
     private func configureSDK(using config: WeatherConfig) {
         //Add api nil check
         self.networkManager.setApiKey(config.apiKey)
-        Task {
-            try await WeatherViewModel().fetchCombinedWeather(for: "Mumbai")
-        }
     }
     
 }
