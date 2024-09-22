@@ -33,8 +33,7 @@ Swift Package Manager
 
 WeatherSDK is distributed via Swift Package Manager (SPM), making it easy to integrate into your project.
 
-	1.	Open Your Project in Xcode
-Launch Xcode and open your project or workspace.
+	1.	Open Your Project in Xcode Launch Xcode and open your project or workspace.
 	2.	Add Package Dependency
 	•	Navigate to File > Add Packages…
 	•	In the search bar, enter the repository URL of WeatherSDK. 
