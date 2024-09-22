@@ -9,7 +9,7 @@ public final class WeatherSDK: NSObject {
     
     // MARK: - Properties
     
-    private override init() { }
+     private override init() { }
     
      private static let sdk = WeatherSDKCore.shared
 

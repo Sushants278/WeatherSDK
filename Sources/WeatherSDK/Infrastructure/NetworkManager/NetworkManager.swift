@@ -20,21 +20,18 @@ public enum HTTPMethod: String {
 public class NetworkManager {
     // MARK: - Properties
     
-    private let apiKey: String
-    private let session: URLSession
-    private let host: String
+    static let shared: NetworkManager = {
+        let instance = NetworkManager()
+        return instance
+    }()
     
-    // MARK: - Initialization
+    private var apiKey: String = ""
     
-    /// Initializes the NetworkManager with API key, scheme, and host.
-    /// - Parameters:
-    ///   - apiKey: The API key to be used for all network requests.
-    ///   - host: The base host (e.g., "api.example.com").
-    ///   - session: The URLSession instance. Defaults to `URLSession.shared`.
-    public init(apiKey: String, host: String, session: URLSession = .shared) {
+    private  init() {}
+    
+    func setApiKey(_ apiKey: String) {
+        
         self.apiKey = apiKey
-        self.host = host
-        self.session = session
     }
     
     // MARK: - URLComponents Builder
@@ -47,10 +44,10 @@ public class NetworkManager {
     private func buildURLComponents(path: String, queryItems: [URLQueryItem]? = nil) -> URLComponents {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = host
+        components.host = "api.weatherbit.io"
         components.path = path
         // Append API key as a query parameter
-        var combinedQueryItems = [URLQueryItem(name: "key", value: apiKey)]
+        var combinedQueryItems = [URLQueryItem(name: "key", value: self.apiKey)]
         if let queryItems = queryItems {
             combinedQueryItems.append(contentsOf: queryItems)
         }
@@ -94,7 +91,7 @@ public class NetworkManager {
             }
         }
         
-        let (data, response) = try await session.data(for: request)
+        let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse

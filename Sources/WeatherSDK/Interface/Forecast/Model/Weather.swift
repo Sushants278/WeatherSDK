@@ -30,6 +30,7 @@ struct ForecastWeather: Codable {
 
 // MARK: - Datum
 struct Datum: Codable {
+    let cityName : String?
     let ts : Int
     let weather: Weather
     let temp: Double
@@ -37,6 +38,7 @@ struct Datum: Codable {
     
     enum CodingKeys: String, CodingKey {
         case timestampLocal = "timestamp_local"
+        case cityName = "city_name"
         case ts,weather,temp
     }
 }
