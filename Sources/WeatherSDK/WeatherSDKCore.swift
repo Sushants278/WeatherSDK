@@ -7,11 +7,6 @@
 
 import Foundation
 
-protocol WeatherSDKCoreProtocol {
-    
-    func initializeSDK(withConfig: WeatherConfig)
-}
-
 class WeatherSDKCore: NSObject {
     
     static let shared: WeatherSDKCore = {
@@ -22,16 +17,28 @@ class WeatherSDKCore: NSObject {
     private override init() {}
     
     private var networkManager = NetworkManager.shared
+    private var isInitialized = false
     
-    
-    func initializeSDK(withConfig: WeatherConfig) {
-        
-        configureSDK(using: withConfig)
+    /// Initializes the SDK with the provided configuration.
+    /// - Parameter config: The configuration object containing necessary keys.
+    func initializeSDK(withConfig config: WeatherConfig) {
+        guard !isInitialized else {
+            print("WeatherSDKCore: SDK is already initialized.")
+            return
+        }
+        configureSDK(using: config)
+        isInitialized = true
     }
     
+    /// Configures the SDK using the provided configuration.
+    /// - Parameter config: The configuration object containing necessary keys.
     private func configureSDK(using config: WeatherConfig) {
-        //Add api nil check
-        self.networkManager.setApiKey(config.apiKey)
+        // Ensure API key is valid
+        guard !config.apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            fatalError("WeatherSDKCore: API Key is missing or empty. Please provide a valid API Key.")
+        }
+        
+        // Set the API key in the NetworkManager
+        networkManager.setApiKey(config.apiKey)
     }
-    
 }

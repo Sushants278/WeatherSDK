@@ -35,11 +35,12 @@ struct Datum: Codable {
     let weather: Weather
     let temp: Double
     let timestampLocal: String? 
+    let timezone: String?
     
     enum CodingKeys: String, CodingKey {
         case timestampLocal = "timestamp_local"
         case cityName = "city_name"
-        case ts,weather,temp
+        case ts,weather,temp, timezone
     }
 }
 
@@ -52,4 +53,18 @@ enum Pod: String, Codable {
 struct Weather: Codable {
     let code: Int
     let description, icon: String
+}
+
+struct CombinedWeather {
+    let cityName: String
+    let currentTemperature: Int
+    let currentDescription: String
+    let currentLocalTime: String
+    let hourlyForecasts: [HourlyForecast]
+}
+
+struct HourlyForecast {
+    let time: String
+    let temperature: Int
+    let description: String
 }

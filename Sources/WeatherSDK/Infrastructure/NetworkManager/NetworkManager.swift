@@ -38,7 +38,7 @@ public class NetworkManager {
     
     /// Constructs URLComponents with the provided path and query items, including the API key.
     /// - Parameters:
-    ///   - path: The endpoint path (e.g., "/posts/1/comments").
+    ///   - path: The endpoint path (e.g., "/v2.0/forecast/hourly"").
     ///   - queryItems: Optional query parameters for the request.
     /// - Returns: Configured URLComponents.
     private func buildURLComponents(path: String, queryItems: [URLQueryItem]? = nil) -> URLComponents {
@@ -61,7 +61,7 @@ public class NetworkManager {
     ///
     /// - Parameters:
     ///   - method: The HTTP method (`GET`, `POST`, etc.).
-    ///   - path: The endpoint path (e.g., "/posts/1/comments").
+    ///   - path: "/v2.0/forecast/hourly"
     ///   - queryItems: Optional query parameters for the request.
     ///   - body: Optional body for `POST` requests (must conform to `Encodable`).
     /// - Returns: Decoded response of type `T`.
@@ -93,7 +93,7 @@ public class NetworkManager {
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
-        guard let httpResponse = response as? HTTPURLResponse else {
+        guard response is HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
         

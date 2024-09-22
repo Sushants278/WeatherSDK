@@ -15,7 +15,8 @@ public enum NetworkError: Error, LocalizedError {
     case invalidResponse
     case decodingError(Error)
     case unknownError
-
+    case noCurrentWeatherData
+    
     public var errorDescription: String? {
         switch self {
         case .invalidURL:
@@ -26,6 +27,8 @@ public enum NetworkError: Error, LocalizedError {
             return "The response from the server was invalid."
         case .decodingError(let error):
             return "Failed to decode the response: \(error.localizedDescription)"
+        case .noCurrentWeatherData:
+                 return "Current weather data is unavailable."
         case .unknownError:
             return "An unknown error occurred."
         }

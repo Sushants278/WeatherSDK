@@ -33,7 +33,7 @@ extension NetworkManager: WeatherRequests {
         return weather
     }
     
-    /// Fetches the weather forecast for a given city.
+    /// Fetches the weather forecast for 24 hours a given city.
     /// - Parameter city: The name of the city.
     /// - Returns: A `Weather` object containing the forecast data.
     /// - Throws: `NetworkError` if the request fails or decoding fails.

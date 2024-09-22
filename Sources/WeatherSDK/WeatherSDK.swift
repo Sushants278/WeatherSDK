@@ -4,8 +4,9 @@
 // WeatherSDK.swift
 
 import Foundation
+import SwiftUICore
 
-public final class WeatherSDK: NSObject {
+@objc public final class WeatherSDK: NSObject {
     
     // MARK: - Properties
     
@@ -15,9 +16,8 @@ public final class WeatherSDK: NSObject {
 
     /// Initializes the SDK with your configuration.
     /// - Parameter withConfig: config object containing initialization parameters
-     public static func initializeSDK(withConfig: WeatherConfig) {
+    @objc public static func initializeSDK(withConfig: WeatherConfig) {
         
         sdk.initializeSDK(withConfig: withConfig)
     }
-    
 }
