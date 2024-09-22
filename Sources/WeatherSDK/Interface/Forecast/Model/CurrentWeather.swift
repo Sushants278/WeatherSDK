@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Weather
-struct Weather: Codable {
+struct CurrentWeather: Codable {
     let count: Int
     let data: [Datum]
 }
@@ -71,7 +71,7 @@ struct WeatherClass: Codable {
     let icon: String
 }
 
-struct Forecast: Codable {
+struct ForecastWeather: Codable {
     let cityName, countryCode: String
     let data: [Datum]
     let lat, lon, stateCode, timezone: String

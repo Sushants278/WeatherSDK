@@ -13,7 +13,6 @@ import Foundation
 public enum HTTPMethod: String {
     case GET
     case POST
-    // Add more methods as needed (e.g., PUT, DELETE)
 }
 
 // MARK: - NetworkManager Class

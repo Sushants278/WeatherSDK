@@ -8,8 +8,8 @@
 import Foundation
 
  protocol WeatherRequests {
-    func fetchCurrentWeather(for city: String) async throws -> Weather
-    func fetchForecast(for city: String) async throws ->  Weather
+    func fetchCurrentWeather(for city: String) async throws -> CurrentWeather
+    func fetchForecast(for city: String) async throws ->  ForecastWeather
 }
 
 // MARK: - NetworkManager Conformance to WeatherRequests
@@ -20,10 +20,10 @@ extension NetworkManager: WeatherRequests {
     /// - Parameter city: The name of the city.
     /// - Returns: A `Weather` object containing the current weather data.
     /// - Throws: `NetworkError` if the request fails or decoding fails.
-     func fetchCurrentWeather(for city: String) async throws -> Weather {
+     func fetchCurrentWeather(for city: String) async throws -> CurrentWeather {
         let endpoint = APIEndpoint.currentWeather(city: city)
         
-        let weather: Weather = try await executeRequest(
+        let weather: CurrentWeather = try await executeRequest(
             method: .GET,
             path: endpoint.path,
             queryItems: endpoint.queryItems,
@@ -37,10 +37,10 @@ extension NetworkManager: WeatherRequests {
     /// - Parameter city: The name of the city.
     /// - Returns: A `Weather` object containing the forecast data.
     /// - Throws: `NetworkError` if the request fails or decoding fails.
-     func fetchForecast(for city: String) async throws -> Weather {
+     func fetchForecast(for city: String) async throws -> ForecastWeather {
         let endpoint = APIEndpoint.forecastHourly(city: city, hours: 24)
         
-        let forecast: Weather = try await executeRequest(
+        let forecast: ForecastWeather = try await executeRequest(
             method: .GET,
             path: endpoint.path,
             queryItems: endpoint.queryItems,
