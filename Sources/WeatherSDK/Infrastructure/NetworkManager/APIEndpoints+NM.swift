@@ -16,7 +16,7 @@ enum APIEndpoint {
         case .currentWeather:
             return "/v2.0/current"
         case .forecastHourly:
-            return "/2.0/forecast/hourly"
+            return "/v2.0/forecast/hourly"
         }
     }
     

@@ -29,7 +29,6 @@ public class NetworkManager {
     /// Initializes the NetworkManager with API key, scheme, and host.
     /// - Parameters:
     ///   - apiKey: The API key to be used for all network requests.
-    ///   - scheme: The URL scheme (e.g., "https"). Defaults to "https".
     ///   - host: The base host (e.g., "api.example.com").
     ///   - session: The URLSession instance. Defaults to `URLSession.shared`.
     public init(apiKey: String, host: String, session: URLSession = .shared) {
@@ -51,7 +50,7 @@ public class NetworkManager {
         components.host = host
         components.path = path
         // Append API key as a query parameter
-        var combinedQueryItems = [URLQueryItem(name: "apikey", value: apiKey)]
+        var combinedQueryItems = [URLQueryItem(name: "key", value: apiKey)]
         if let queryItems = queryItems {
             combinedQueryItems.append(contentsOf: queryItems)
         }
@@ -106,6 +105,7 @@ public class NetworkManager {
             let decodedResponse = try decoder.decode(T.self, from: data)
             return decodedResponse
         } catch {
+            print(error)
             throw NetworkError.decodingError(error)
         }
     }
